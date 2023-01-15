@@ -16,8 +16,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/studenten")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
-public class StudentRestController {
+@CrossOrigin(origins = "http://127.0.0.1:5500") //the request is answered from a different server than the one it was received from.
+public class  StudentRestController {
 
     private StudentenService studentenService;
 
