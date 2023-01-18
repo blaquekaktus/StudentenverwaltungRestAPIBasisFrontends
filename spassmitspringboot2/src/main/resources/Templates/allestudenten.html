@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+        lang="de"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title>Student:innenliste</title>
+</head>
+<body>
+<div class="container-fluid">
+  <h1>Student:innenliste</h1>
+
+</div>
+    <table class="table" id="studentTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>PLZ</th>
+            <th>AKTION</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student:${allStudents}"> <!--Thymeleaf foreach loop-->
+            <td th:text="${student.getId}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.plz}"></td>
+            <td>Aktion offen</td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</body>
+</html>
