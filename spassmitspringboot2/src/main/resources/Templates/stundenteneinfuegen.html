@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--suppress ThymeleafVariablesResolveInspection -->
+
 <html
         lang="de"
         xmlns:th="http://www.thymeleaf.org"
@@ -13,21 +13,25 @@
 <body>
 <div class="container-fluid">
   <h1>Student:in einfuegen</h1>
+
+  <hr class="border-2 border-top border-info">
+  <a href="allestudenten.html" class="btn btn-info" role="button">Student:innenliste</a>
+  <hr class="border-2 border-top border-info">
+
+
+  <form th:object="${student}" th:action="@{/web/v1/studenten/insert}" method="post"> <!--@:Url=>Server Path-->
+    <div class="mb-3">
+      <label for="name" class="form-label">NAME</label>
+      <input type="text" class="form-control" id="name" name="name" th:field="*{name}"/>
+      <div class="form-text" th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></div>
+
+      <label for="plz" class="form-label">PLZ</label>
+      <input type="text" class="form-control" id="plz" name="plz" th:field="*{plz}"/>
+      <div class="form-text" th:if="${#fields.hasErrors('plz')}" th:errorclass="error" th:errors="*{plz}"></div>
+    </div>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Speichern</button>
+  </form>
 </div>
-
-<form th:object="${student}" th:action="@{/web/v1/studenten/insert}" method="post">
-  <div class="mb-3">
-    <label for="name" class="form-label">NAME</label>
-    <input type="text" class="form-control" id="name" name="name" th:field="*{name}"/>
-    <div class="form-text" th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></div>
-
-    <label for="plz" class="form-label">PLZ</label>
-    <input type="text" class="form-control" id="plz" name="plz" th:field="*{plz}"/>
-    <div class="form-text" th:if="${#fields.hasErrors('plz')}" th:errorclass="error" th:errors="*{plz}"></div>
-  </div>
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Speichern</button>
-</form>
-
 
 </body>
 </html>

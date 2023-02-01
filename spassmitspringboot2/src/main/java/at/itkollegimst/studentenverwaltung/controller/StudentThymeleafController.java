@@ -27,7 +27,7 @@ public class StudentThymeleafController {
         return "allestudenten";
     }
 
-    @GetMapping("/insert")
+    @GetMapping("/insert")                                  //Formular wird angezeigt
     public String studentenEinfuegenFormular(Model model){
         Student student = new Student();
         model.addAttribute("student", student);
@@ -35,9 +35,9 @@ public class StudentThymeleafController {
     }
 
     @PostMapping("/insert")
-    public String studentEinfuegen(@Valid Student student, BindingResult bindingResult) { //validation is checked, if invalid error messages stored in bindingResult
+    public String studentEinfuegen(@Valid Student student, BindingResult bindingResult) { //Student validation is checked, if invalid error messages stored in bindingResult
         if (bindingResult.hasErrors()) {
-            return "studenteneinfuegen";
+            return "studenteneinfuegen"; //Insert Student Template (Formular)
         } else {
             this.studentenService.studentEinfuegen(student);
             return "redirect:/web/v1/studenten";
