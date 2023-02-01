@@ -1,11 +1,13 @@
 package at.itkollegimst.studentenverwaltung.controller;
 
 import at.itkollegimst.studentenverwaltung.domain.Student;
+import at.itkollegimst.studentenverwaltung.exceptions.StudentNichtGefunden;
 import at.itkollegimst.studentenverwaltung.services.StudentenService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -41,6 +43,30 @@ public class StudentThymeleafController {
         } else {
             this.studentenService.studentEinfuegen(student);
             return "redirect:/web/v1/studenten";
+        }
+    }
+@GetMapping("/update/{id}")
+    public String studentenUpdatenForm(@PathVariable Long id, Model model){
+        try{
+            Student student = this.studentenService.studentMitId(id);
+            model.addAttribute("student", student);
+            return "studentenupdaten";
+        }catch(StudentNichtGefunden studentNichtGefunden){
+            return "redirect:/web/v1/studenten";
+        }
+    }
+
+    @PostMapping("/update")
+    public String studentUpdaten(@Valid Student student, BindingResult bindingResult) { //Student validation is checked, if invalid error messages stored in bindingResult
+        if (bindingResult.hasErrors()) {
+            return "studentenupdaten"; //Update Student Template (Formular)
+        } else {
+            try {
+                this.studentenService.studentUpdaten(student);
+                return "redirect:/web/v1/studenten";
+            }catch(StudentNichtGefunden studentNichtGefunden){
+                return "redirect:/web/v1/studenten";
+            }
         }
     }
 }
